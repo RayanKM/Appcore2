@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ViewFlipper
+        android:layout_margin="20dp"
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:autoStart="false"
+        android:flipInterval="3000"
+        />
+
+    <TextView
+        android:id="@+id/carname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CAR NAME"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/cardis"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CAR INFO"
+        android:gravity="start"
+        android:textSize="14dp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/brand"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/shape"
+            android:text="CAR INFO"
+            android:gravity="center"
+            android:fontFamily="@font/helvetica_regular"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/year"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/shape"
+            android:text="CAR INFO"
+            android:gravity="center"
+            android:fontFamily="@font/helvetica_regular"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/hp"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/shape"
+            android:text="CAR INFO"
+            android:gravity="center"
+            android:fontFamily="@font/helvetica_regular"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <RatingBar
+        android:layout_margin="10dp"
+        android:id="@+id/ratingBar"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:progressBackgroundTint="@color/white"
+        android:progressTint="#FFBA41"
+        android:secondaryProgressTint="#FFBA41"
+        android:isIndicator="true" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="120$"
+        android:gravity="end"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_margin="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/previous"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/left"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/borrow"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:text="Borrow"
+            android:background="@drawable/shape"/>
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_chevron_right_24"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
