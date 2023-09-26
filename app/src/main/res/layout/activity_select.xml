@@ -29,6 +29,7 @@
             android:layout_height="1dp"
             android:valueFrom="0"
             android:value="1"
+            android:progress="1"
             android:valueTo="7"
             app:thumbColor="#126F6F"
             app:trackColorActive="#126F6F"

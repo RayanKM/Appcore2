@@ -28,7 +28,7 @@ class Select : AppCompatActivity() {
             // You can use it as needed
             // For example, you can display it in a TextView
             days = value.toInt()
-            total = selectedItem?.price?.times(value)!!.toInt()
+            total = calculateTotalPrice(selectedItem!!.price!!.toInt(), days)
             binding.price.text = "$${total}"
         }
 
@@ -77,5 +77,8 @@ class Select : AppCompatActivity() {
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)
         super.onBackPressed() // This will finish the current activity and go back to the main activity
+    }
+    fun calculateTotalPrice(price: Int, days: Int): Int {
+        return PriceCalculator.calculateTotalPrice(price, days)
     }
 }
