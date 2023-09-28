@@ -10,15 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        style="@style/bgStyle"
         android:orientation="vertical">
         
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Days"
+            style="@style/TextViewStyle"
             android:textSize="20dp"
             android:gravity="center"
-            android:textColor="@color/black"
             android:layout_margin="20dp"/>
 
         <com.google.android.material.slider.Slider
@@ -35,7 +36,6 @@
             app:trackColorActive="#126F6F"
             android:stepSize="1"/>
 
-
         <TextView
             android:id="@+id/price"
             android:layout_width="match_parent"
@@ -47,7 +47,6 @@
             android:textColor="@color/black"
             android:layout_margin="20dp"/>
 
-
         <androidx.appcompat.widget.AppCompatButton
             android:layout_marginTop="50dp"
             android:id="@+id/save"
@@ -55,7 +54,6 @@
             android:layout_height="40dp"
             android:text="Save"
             android:background="@drawable/shape"/>
-
 
     </LinearLayout>
 

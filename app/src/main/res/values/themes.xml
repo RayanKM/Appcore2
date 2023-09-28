@@ -7,8 +7,10 @@
 
     <style name="Theme.Appcore2" parent="Base.Theme.Appcore2" />
 
-    <style name="CustomRatingBar" parent="android:style/Widget.Material.RatingBar.Small">
-        <item name="android:height">30dp</item>
-        <item name="android:max">5</item>
+    <style name="TextViewStyle">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="bgStyle">
+        <item name="android:background">@color/white</item>
     </style>
 </resources>

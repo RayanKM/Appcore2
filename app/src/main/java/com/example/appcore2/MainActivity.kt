@@ -7,6 +7,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import com.example.appcore2.databinding.ActivityMainBinding
 import www.sanju.motiontoast.MotionToast
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private var currentIndex = 0
     private lateinit var inAnimation: Animation
     private lateinit var outAnimation: Animation
+    private lateinit var selectActivityResultLauncher: ActivityResultLauncher<Intent>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +41,46 @@ class MainActivity : AppCompatActivity() {
         // Initialize the viewFlipper with the first car
         addCarDetailView(carList[currentIndex])
 
+        selectActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                if (data != null) {
+                    MotionToast.createColorToast(
+                        this,
+                        "Borrowing completed successfully",
+                        "Good choice!",
+                        MotionToastStyle.SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(
+                            this,
+                            www.sanju.motiontoast.R.font.helvetica_regular
+                        )
+                    )
+                    // Handle the result data from the Select activity
+                    val updatedItem = data.getParcelableExtra<DataModel>("updatedItem")
+                    if (updatedItem != null) {
+                        // Update the UI or carList based on the received data
+                        carList[currentIndex] = updatedItem
+                        binding.borrow.setBackgroundResource(R.drawable.shape2)
+                        binding.borrow.text = updatedItem.borrow
+                    }
+                }
+            }
+            else if (result.resultCode == RESULT_CANCELED) {
+                // Handle the case when the Select activity was canceled
+                MotionToast.createColorToast(
+                    this,
+                    "Back to menu",
+                    "Keep exploring for the right car",
+                    MotionToastStyle.INFO,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
+                )
+            }
+        }
+
         // Set click listeners for Next and Previous buttons
         binding.next.setOnClickListener {
             if (currentIndex < carList.size - 1) {
@@ -55,12 +99,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.borrow.setOnClickListener {
             val intent = Intent(this, Select::class.java)
-
-            // Pass the selected item's data to SecondActivity
             intent.putExtra("selectedItem", carList[currentIndex])
-
-            // Start SecondActivity and expect a result
-            startActivityForResult(intent, 1)
+            selectActivityResultLauncher.launch(intent)
         }
     }
 
@@ -83,57 +123,11 @@ class MainActivity : AppCompatActivity() {
         binding.year.text = "Year: ${car.year}"
         binding.ratingBar.rating = car.rating.toFloat()
         if (car.borrow != ""){
-            binding.borrow.isClickable = false
             binding.borrow.text = car.borrow
             binding.borrow.setBackgroundResource(R.drawable.shape2)
         }else{
             binding.borrow.text = "Borrow"
             binding.borrow.setBackgroundResource(R.drawable.shape)
-            binding.borrow.isClickable = true
-        }
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // Check if the result is from SecondActivity
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            MotionToast.createColorToast(
-                this,
-                "Borrowing completed successfully",
-                "Good choice!",
-                MotionToastStyle.SUCCESS,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(
-                    this,
-                    www.sanju.motiontoast.R.font.helvetica_regular
-                )
-            )
-            // Receive the updated item from SecondActivity
-            val updatedItem = data?.getParcelableExtra<DataModel>("updatedItem")
-
-            if (updatedItem != null) {
-                // Update the item in the carList
-                carList[currentIndex] = updatedItem
-                binding.borrow.isClickable = false
-                binding.borrow.setBackgroundResource(R.drawable.shape2)
-                // Update the borrow text in the UI
-                binding.borrow.text = updatedItem.borrow
-            }
-        }
-        if (requestCode == 1 && resultCode == RESULT_CANCELED) {
-            MotionToast.createColorToast(
-                this,
-                "Back to menu",
-                "Keep exploring for the right car",
-                MotionToastStyle.INFO,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(
-                    this,
-                    www.sanju.motiontoast.R.font.helvetica_regular
-                )
-            )
         }
     }
 }
